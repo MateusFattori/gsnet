@@ -1,0 +1,43 @@
+﻿@model gsnet.Models.Coral
+
+<h1>Detalhes do Coral</h1>
+
+<div>
+    <h4>Nome</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+    </dl>
+
+    <h4>Espécie</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Especie)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Especie)
+        </dd>
+    </dl>
+
+    <h4>Projeto</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Projeto.Nome)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Projeto.Nome)
+        </dd>
+    </dl>
+
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.Id">Editar</a> |
+        <a asp-action="Index">Voltar para a Lista</a>
+    </div>
+</div>

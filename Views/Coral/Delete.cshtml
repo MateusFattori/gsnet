@@ -1,0 +1,16 @@
+﻿@model gsnet.Models.Coral
+
+<h1>Excluir Coral</h1>
+
+<h3>Tem certeza de que deseja excluir este coral?</h3>
+<div>
+    <h4>Nome</h4>
+    <h5>@Html.DisplayFor(model => model.Nome)</h5>
+    <h4>Espécie</h4>
+    <h5>@Html.DisplayFor(model => model.Especie)</h5>
+</div>
+<form asp-action="Delete">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Excluir</button> |
+    <a asp-action="Index">Cancelar</a>
+</form>

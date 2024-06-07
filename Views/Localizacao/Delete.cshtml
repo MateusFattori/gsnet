@@ -1,0 +1,16 @@
+﻿@model gsnet.Models.Localizacao
+
+<h1>Excluir Localização</h1>
+
+<h3>Tem certeza de que deseja excluir esta localização?</h3>
+<div>
+    <h4>Latitude</h4>
+    <h5>@Html.DisplayFor(model => model.Latitude)</h5>
+    <h4>Longitude</h4>
+    <h5>@Html.DisplayFor(model => model.Longitude)</h5>
+</div>
+<form asp-action="Delete">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Excluir</button> |
+    <a asp-action="Index">Cancelar</a>
+</form>
