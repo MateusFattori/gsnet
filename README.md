@@ -1,3 +1,15 @@
+## Integrantes
+
+Bianca Barreto RM:551848
+
+Gabriel Cirillo RM:98214
+
+Julia Akemi RM:98032
+
+Pedro Baraldi Sá RM:98060
+
+Mateus Fattori RM:97904
+
 ## Documentação
 
 [DocsJv.pdf](https://github.com/user-attachments/files/15745313/DocsJv.pdf)
