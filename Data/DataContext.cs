@@ -8,9 +8,9 @@ namespace gsnet.Data
         {
         }
 
-        public DbSet<Coral> Coralis { get; set; }
+        public DbSet<Coral> Corais { get; set; }
         public DbSet<Projeto> Projetos { get; set; }
-        public DbSet<Localizacao> Localizacaoes { get; set; }
+        public DbSet<Localizacao> Localizacoes { get; set; }
         public DbSet<User> Users { get; set; }
     }
 

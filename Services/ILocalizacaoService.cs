@@ -10,5 +10,6 @@ namespace gsnet.Services
         Task<Localizacao> GetLocalizacaoByIdAsync(int localizacaoId);
         Task UpdateLocalizacaoAsync(Localizacao localizacao);
         Task DeleteLocalizacaoAsync(int localizacaoId);
+        Task<string?> GetAllLocalizacoesAsync();
     }
 }

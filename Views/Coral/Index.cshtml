@@ -1,0 +1,33 @@
+﻿@model IEnumerable<gsnet.Models.Coral>
+
+<h1>Lista de Corais</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">Novo Coral</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Espécie</th>
+            <th>Data de Cadastro</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var coral in Model)
+        {
+            <tr>
+                <td>@coral.Nome</td>
+                <td>@coral.Especie</td>
+                <td>@coral.dt_cadastro.ToString("dd/MM/yyyy")</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@coral.Id" class="btn btn-primary">Detalhes</a>
+                    <a asp-action="Edit" asp-route-id="@coral.Id" class="btn btn-warning">Editar</a>
+                    <a asp-action="Delete" asp-route-id="@coral.Id" class="btn btn-danger">Excluir</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

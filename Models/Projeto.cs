@@ -21,6 +21,6 @@ namespace gsnet.Models
         [Column(TypeName = "DATE")]
         public DateTime dt_final { get; set; }
 
-        public ICollection<Coral> Corais { get; set; }
+        public string Descricao { get; set; }
     }
 }

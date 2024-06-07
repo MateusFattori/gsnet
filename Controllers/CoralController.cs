@@ -1,25 +1,40 @@
-﻿using gsnet.Models;
+﻿using gsnet.Data;
+using gsnet.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using gsnet.Data;
+using System.Linq;
 
 namespace gsnet.Controllers
 {
-    public class CoralsController : Controller
+    public class CoralController : Controller
     {
         private readonly DataContext _context;
 
-        public CoralsController(DataContext context)
+        public CoralController(DataContext context)
         {
             _context = context;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var corals = await _context.Coralis.Include(c => c.Projeto).ToListAsync();
+            var corals = _context.Corais.ToList();
             return View(corals);
+        }
+
+        public IActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var coral = _context.Corais.FirstOrDefault(c => c.Id == id);
+            if (coral == null)
+            {
+                return NotFound();
+            }
+
+            return View(coral);
         }
 
         public IActionResult Create()
@@ -28,20 +43,26 @@ namespace gsnet.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Coral coral)
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(Coral coral)
         {
             if (ModelState.IsValid)
             {
-                _context.Coralis.Add(coral);
-                await _context.SaveChangesAsync();
+                _context.Add(coral);
+                _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             return View(coral);
         }
 
-        public async Task<IActionResult> Edit(int id)
+        public IActionResult Edit(int? id)
         {
-            var coral = await _context.Coralis.FindAsync(id);
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var coral = _context.Corais.FirstOrDefault(c => c.Id == id);
             if (coral == null)
             {
                 return NotFound();
@@ -50,39 +71,71 @@ namespace gsnet.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, Coral coral)
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int id, Coral coral)
         {
             if (id != coral.Id)
             {
-                return BadRequest();
+                return NotFound();
             }
 
             if (ModelState.IsValid)
             {
-                _context.Update(coral);
-                await _context.SaveChangesAsync();
+                try
+                {
+                    _context.Update(coral);
+                    _context.SaveChanges();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!CoralExists(coral.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
                 return RedirectToAction(nameof(Index));
             }
             return View(coral);
         }
 
-        public async Task<IActionResult> Delete(int id)
+        public IActionResult Delete(int? id)
         {
-            var coral = await _context.Coralis.FindAsync(id);
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var coral = _context.Corais.FirstOrDefault(c => c.Id == id);
             if (coral == null)
             {
                 return NotFound();
             }
+
             return View(coral);
         }
 
         [HttpPost, ActionName("Delete")]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteConfirmed(int id)
         {
-            var coral = await _context.Coralis.FindAsync(id);
-            _context.Coralis.Remove(coral);
-            await _context.SaveChangesAsync();
+            var coral = _context.Corais.FirstOrDefault(c => c.Id == id);
+            if (coral == null)
+            {
+                return NotFound();
+            }
+
+            _context.Corais.Remove(coral);
+            _context.SaveChanges();
             return RedirectToAction(nameof(Index));
+        }
+
+        private bool CoralExists(int id)
+        {
+            return _context.Corais.Any(c => c.Id == id);
         }
     }
 }

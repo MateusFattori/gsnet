@@ -1,18 +1,24 @@
 ﻿@model gsnet.Models.Projeto
 
-<h1>Excluir Projeto</h1>
+<h2>Excluir Projeto</h2>
 
-<h3>Tem certeza de que deseja excluir este projeto?</h3>
+<h4>Tem certeza de que deseja excluir este projeto?</h4>
 <div>
-    <h4>Nome</h4>
-    <h5>@Html.DisplayFor(model => model.Nome)</h5>
-    <h4>Data de Início</h4>
-    <h5>@Html.DisplayFor(model => model.dt_inicio)</h5>
-    <h4>Data Final</h4>
-    <h5>@Html.DisplayFor(model => model.dt_final)</h5>
+    <h4>Id: @Model.Id</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Nome</dt>
+        <dd class="col-sm-10">@Model.Nome</dd>
+        <dt class="col-sm-2">Data de Início</dt>
+        <dd class="col-sm-10">@Model.dt_inicio.ToString("dd/MM/yyyy")</dd>
+        <dt class="col-sm-2">Data de Término</dt>
+        <dd class="col-sm-10">@Model.dt_final.ToString("dd/MM/yyyy")</dd>
+        <dt class="col-sm-2">Descrição</dt>
+        <dd class="col-sm-10">@Model.Descricao</dd>
+    </dl>
+    <form asp-action="DeleteConfirmed" method="post">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Excluir" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+    </form>
 </div>
-<form asp-action="Delete">
-    <input type="hidden" asp-for="Id" />
-    <button type="submit" class="btn btn-danger">Excluir</button> |
-    <a asp-action="Index">Cancelar</a>
-</form>

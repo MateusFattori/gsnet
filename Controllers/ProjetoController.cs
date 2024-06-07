@@ -1,25 +1,32 @@
-﻿using gsnet.Models;
+﻿using gsnet.Data;
+using gsnet.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Threading.Tasks;
-using System.Collections.Generic;
-using gsnet.Data;
 
 namespace gsnet.Controllers
 {
-    public class ProjetosController : Controller
+    public class ProjetoController : Controller
     {
         private readonly DataContext _context;
 
-        public ProjetosController(DataContext context)
+        public ProjetoController(DataContext context)
         {
             _context = context;
         }
 
         public async Task<IActionResult> Index()
         {
-            var projetos = await _context.Projetos.Include(p => p.Corais).ToListAsync();
+            var projetos = await _context.Projetos.ToListAsync();
             return View(projetos);
+        }
+
+        public async Task<IActionResult> Details(int id)
+        {
+            var projeto = await _context.Projetos.FirstOrDefaultAsync(p => p.Id == id);
+            if (projeto == null) return NotFound();
+            return View(projeto);
         }
 
         public IActionResult Create()
@@ -28,11 +35,12 @@ namespace gsnet.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Projeto projeto)
         {
             if (ModelState.IsValid)
             {
-                _context.Projetos.Add(projeto);
+                _context.Add(projeto);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -42,25 +50,28 @@ namespace gsnet.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             var projeto = await _context.Projetos.FindAsync(id);
-            if (projeto == null)
-            {
-                return NotFound();
-            }
+            if (projeto == null) return NotFound();
             return View(projeto);
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Projeto projeto)
         {
-            if (id != projeto.Id)
-            {
-                return BadRequest();
-            }
+            if (id != projeto.Id) return NotFound();
 
             if (ModelState.IsValid)
             {
-                _context.Update(projeto);
-                await _context.SaveChangesAsync();
+                try
+                {
+                    _context.Update(projeto);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!ProjetoExists(projeto.Id)) return NotFound();
+                    else throw;
+                }
                 return RedirectToAction(nameof(Index));
             }
             return View(projeto);
@@ -68,21 +79,24 @@ namespace gsnet.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
-            var projeto = await _context.Projetos.FindAsync(id);
-            if (projeto == null)
-            {
-                return NotFound();
-            }
+            var projeto = await _context.Projetos.FirstOrDefaultAsync(p => p.Id == id);
+            if (projeto == null) return NotFound();
             return View(projeto);
         }
 
         [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var projeto = await _context.Projetos.FindAsync(id);
             _context.Projetos.Remove(projeto);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        private bool ProjetoExists(int id)
+        {
+            return _context.Projetos.Any(p => p.Id == id);
         }
     }
 }

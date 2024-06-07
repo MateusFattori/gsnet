@@ -1,43 +1,22 @@
 ﻿@model gsnet.Models.Projeto
 
-<h1>Detalhes do Projeto</h1>
+<h2>Detalhes do Projeto</h2>
 
 <div>
-    <h4>Nome</h4>
+    <h4>Id: @Model.Id</h4>
     <hr />
     <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Nome)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Nome)
-        </dd>
+        <dt class="col-sm-2">Nome</dt>
+        <dd class="col-sm-10">@Model.Nome</dd>
+        <dt class="col-sm-2">Data de Início</dt>
+        <dd class="col-sm-10">@Model.dt_inicio.ToString("dd/MM/yyyy")</dd>
+        <dt class="col-sm-2">Data de Término</dt>
+        <dd class="col-sm-10">@Model.dt_final.ToString("dd/MM/yyyy")</dd>
+        <dt class="col-sm-2">Descrição</dt>
+        <dd class="col-sm-10">@Model.Descricao</dd>
     </dl>
+</div>
 
-    <h4>Data de Início</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.dt_inicio)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.dt_inicio)
-        </dd>
-    </dl>
-
-    <h4>Data Final</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.dt_final)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.dt_final)
-        </dd>
-    </dl>
-
-    <div>
-        <a asp-action="Edit" asp-route-id="@Model.Id">Editar</a> |
-        <a asp-action="Index">Voltar para a Lista</a>
-    </div>
+<div>
+    <a asp-action="Index">Voltar para a lista</a>
 </div>

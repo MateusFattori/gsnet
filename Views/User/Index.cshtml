@@ -1,0 +1,39 @@
+﻿@model IEnumerable<gsnet.Models.User>
+
+<h1>Lista de Usuários</h1>
+
+<p>
+    <a asp-action="Create">Criar Novo Usuário</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>UserId</th>
+            <th>Nome</th>
+            <th>Sobrenome</th>
+            <th>Email</th>
+            <th>Cargo</th>
+            <th>Nome de Usuário</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.UserId</td>
+                <td>@user.FirstName</td>
+                <td>@user.LastName</td>
+                <td>@user.Email</td>
+                <td>@user.JobTitle</td>
+                <td>@user.UserName</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@user.UserId">Detalhes</a> |
+                    <a asp-action="Edit" asp-route-id="@user.UserId">Editar</a> |
+                    <a asp-action="Delete" asp-route-id="@user.UserId">Excluir</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

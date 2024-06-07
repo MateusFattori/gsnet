@@ -38,5 +38,10 @@ namespace gsnet.Services
                 await _context.SaveChangesAsync();
             }
         }
+
+        public Task<string?> GetAllLocalizacoesAsync()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

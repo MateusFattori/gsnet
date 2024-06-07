@@ -4,13 +4,13 @@ using System.Threading.Tasks;
 
 namespace gsnet.Services
 {
-    public interface IUserRepository
+    public interface IUserService
     {
-        Task<IEnumerable<User>> GetAllUsersAsync();
+        Task CreateUserAsync(User user);
         Task<User> GetUserByIdAsync(string userId);
         Task<User> GetUserByEmailAsync(string email);
-        Task CreateUserAsync(User user);
         Task UpdateUserAsync(User user);
         Task DeleteUserAsync(string userId);
+        Task<string?> GetAllUsersAsync();
     }
 }

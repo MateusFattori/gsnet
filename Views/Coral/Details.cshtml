@@ -3,41 +3,14 @@
 <h1>Detalhes do Coral</h1>
 
 <div>
-    <h4>Nome</h4>
-    <hr />
     <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Nome)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Nome)
-        </dd>
+        <dt class="col-sm-2">Nome:</dt>
+        <dd class="col-sm-10">@Model.Nome</dd>
+        <dt class="col-sm-2">Espécie:</dt>
+        <dd class="col-sm-10">@Model.Especie</dd>
+        <dt class="col-sm-2">Data de Cadastro:</dt>
+        <dd class="col-sm-10">@Model.dt_cadastro.ToString("dd/MM/yyyy")</dd>
     </dl>
-
-    <h4>Espécie</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Especie)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Especie)
-        </dd>
-    </dl>
-
-    <h4>Projeto</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Projeto.Nome)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Projeto.Nome)
-        </dd>
-    </dl>
-
-    <div>
-        <a asp-action="Edit" asp-route-id="@Model.Id">Editar</a> |
-        <a asp-action="Index">Voltar para a Lista</a>
-    </div>
 </div>
+
+<a asp-action="Index" class="btn btn-primary">Voltar para a Lista</a>

@@ -1,5 +1,4 @@
-﻿// UserService.cs
-using gsnet.Data;
+﻿using gsnet.Data;
 using gsnet.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -44,6 +43,11 @@ namespace gsnet.Services
                 _context.Users.Remove(user);
                 await _context.SaveChangesAsync();
             }
+        }
+
+        public Task<string?> GetAllUsersAsync()
+        {
+            throw new NotImplementedException();
         }
     }
 }

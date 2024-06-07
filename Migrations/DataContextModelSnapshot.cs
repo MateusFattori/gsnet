@@ -32,23 +32,16 @@ namespace gsnet.Migrations
 
                     b.Property<string>("Especie")
                         .IsRequired()
-                        .HasMaxLength(300)
-                        .HasColumnType("NVARCHAR2(300)");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("Nome")
                         .IsRequired()
-                        .HasMaxLength(300)
-                        .HasColumnType("NVARCHAR2(300)");
-
-                    b.Property<int>("ProjetoId")
-                        .HasColumnType("NUMBER(10)");
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<DateTime>("dt_cadastro")
                         .HasColumnType("DATE");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ProjetoId");
 
                     b.ToTable("Corais");
                 });
@@ -61,9 +54,6 @@ namespace gsnet.Migrations
 
                     OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CoralId")
-                        .HasColumnType("NUMBER(10)");
-
                     b.Property<string>("Latitude")
                         .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
@@ -73,8 +63,6 @@ namespace gsnet.Migrations
                         .HasColumnType("NVARCHAR2(2000)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CoralId");
 
                     b.ToTable("Localizacoes");
                 });
@@ -86,6 +74,10 @@ namespace gsnet.Migrations
                         .HasColumnType("NUMBER(10)");
 
                     OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("Nome")
                         .IsRequired()
@@ -135,38 +127,6 @@ namespace gsnet.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("Usuarios");
-                });
-
-            modelBuilder.Entity("gsnet.Models.Coral", b =>
-                {
-                    b.HasOne("gsnet.Models.Projeto", "Projeto")
-                        .WithMany("Corais")
-                        .HasForeignKey("ProjetoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Projeto");
-                });
-
-            modelBuilder.Entity("gsnet.Models.Localizacao", b =>
-                {
-                    b.HasOne("gsnet.Models.Coral", "Coral")
-                        .WithMany("Localizacoes")
-                        .HasForeignKey("CoralId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Coral");
-                });
-
-            modelBuilder.Entity("gsnet.Models.Coral", b =>
-                {
-                    b.Navigation("Localizacoes");
-                });
-
-            modelBuilder.Entity("gsnet.Models.Projeto", b =>
-                {
-                    b.Navigation("Corais");
                 });
 #pragma warning restore 612, 618
         }
