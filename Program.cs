@@ -1,17 +1,19 @@
 using gsnet.Data;
 using Microsoft.EntityFrameworkCore;
+using gsnet.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-var app = builder.Build();
-
 builder.Services.AddDbContext<DataContext>(options =>
 {
     options.UseOracle(builder.Configuration.GetConnectionString("OracleConnection"));
 });
+
+var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
